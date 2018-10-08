@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebShop.Infrastructure.Data
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebShopWebAPI", "WebShopWebAPI\WebShopWebAPI.csproj", "{6C439EF5-175B-438B-B69D-36048A4E0044}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreTest", "CoreTest\CoreTest.csproj", "{B2EDA53B-7FD6-4F84-9E2A-96A0250B5C46}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,5 +45,9 @@ Global
 		{6C439EF5-175B-438B-B69D-36048A4E0044}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C439EF5-175B-438B-B69D-36048A4E0044}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C439EF5-175B-438B-B69D-36048A4E0044}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2EDA53B-7FD6-4F84-9E2A-96A0250B5C46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2EDA53B-7FD6-4F84-9E2A-96A0250B5C46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2EDA53B-7FD6-4F84-9E2A-96A0250B5C46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2EDA53B-7FD6-4F84-9E2A-96A0250B5C46}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -21,5 +21,11 @@ namespace WebShop.Core
         {
             return _ChairRepo.GetChair(id);
         }
+
+        public void DeleteChair(int id){
+            _ChairRepo.DeleteChair(id);
+        }
+
+
     }
 }

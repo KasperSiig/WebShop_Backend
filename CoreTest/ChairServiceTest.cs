@@ -66,16 +66,7 @@ namespace CoreTest
 
             Assert.NotNull(gottanChair);
 
-            Assert.Equal(testChair.Id, gottanChair.Id);
-            Assert.Equal(testChair.Name, gottanChair.Name);
-            Assert.Equal(testChair.Price, gottanChair.Price);
-            Assert.Equal(testChair.Description, gottanChair.Description);
-            Assert.Equal(testChair.PictureURL, gottanChair.PictureURL);
-            Assert.Equal(testChair.Categorys, gottanChair.Categorys);
-            Assert.Equal(testChair.Colors, gottanChair.Colors);
-            Assert.Equal(testChair.Designer, gottanChair.Designer);
-            Assert.Equal(testChair.Maker, gottanChair.Maker);
-            Assert.Equal(testChair.Tags, gottanChair.Tags);
+            Assert.Equal(testChair, gottanChair);
 
         }
 
@@ -115,7 +106,19 @@ namespace CoreTest
         }
 
         [Fact]
+        private void UpdateChairWithNonExistingIdExpectExeption()
+        {
+            
+        }
+
+        [Fact]
         public void DeleteChair()
+        {
+
+        }
+
+        [Fact]
+        private void DeleteChairWithNonExistingIdExpectExeption()
         {
 
         }

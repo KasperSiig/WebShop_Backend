@@ -1,0 +1,84 @@
+﻿using System;
+using System.Collections.Generic;
+using Moq;
+using WebShop.Core;
+using WebShop.Core.Entity;
+using Xunit;
+
+namespace CoreTest
+{
+    public class ChairServiceTest
+    {
+
+
+
+        public ChairServiceTest()
+        {
+        }
+
+        [Fact]
+        public void CreateValidChairTest(){
+            //Setup
+
+            Dictionary<int, Chair> chairs = new Dictionary<int, Chair>();
+            int Id = 1;
+
+            Mock<IChairRepository> mockChairRepo = new Mock<IChairRepository>();
+
+            mockChairRepo.Setup(x => x.AddChair(It.IsAny<Chair>())).Returns<Chair>(arg => InsertIntoDictionaryAndAddId(Id, chairs, arg));
+
+            IChairService chairService = new ChairService(mockChairRepo.Object);
+
+            Chair validChair = new Chair() {Name = "someName", Price = 1};
+
+            //Test
+            Chair chair = chairService.AddChair(validChair);
+
+
+            Assert.Single(chairs); // cheks if there as been added ONE chair to the "Repositorie"
+
+            Assert.NotNull(chair);
+
+            Assert.Equal(Id, chair.Id); // cheks if the returned chair has the given id
+
+            Assert.Equal(chairs[Id], chair);
+
+        }
+
+        private Chair InsertIntoDictionaryAndAddId(int id, Dictionary<int, Chair> chairs, Chair chair)
+        {
+            chair.Id = id;
+            chairs.Add(id, chair);
+            return chair;
+        }
+
+        [Fact]
+        public void GetChairById(){
+
+        }
+
+        [Fact]
+        public void GetAllChairs()
+        {
+
+        }
+
+        [Fact]
+        public void GetChairsPaged()
+        {
+
+        }
+
+        [Fact]
+        public void UpdateChair()
+        {
+
+        }
+
+        [Fact]
+        public void DeleteChair()
+        {
+
+        }
+    }
+}

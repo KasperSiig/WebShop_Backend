@@ -16,5 +16,10 @@ namespace WebShop.Core
         {
             return _ChairRepo.AddChair(chair);
         }
+
+        public Chair GetChairById(int id)
+        {
+            return _ChairRepo.GetChair(id);
+        }
     }
 }

@@ -54,6 +54,45 @@ namespace CoreTest
 
         [Fact]
         public void GetChairById(){
+            //Setup
+            Mock<IChairRepository> mockChairRepo = new Mock<IChairRepository>();
+            var testChair = new Chair() { Id = 1 , Name = "Im the testChair", Price = 1};
+            mockChairRepo.Setup(x => x.GetChair(It.IsAny<int>())).Returns<int>(arg => testChair);
+
+            IChairService chairService = new ChairService(mockChairRepo.Object);
+
+            // Test
+            Chair gottanChair = chairService.GetChairById(1);
+
+            Assert.NotNull(gottanChair);
+
+            Assert.Equal(testChair.Id, gottanChair.Id);
+            Assert.Equal(testChair.Name, gottanChair.Name);
+            Assert.Equal(testChair.Price, gottanChair.Price);
+            Assert.Equal(testChair.Description, gottanChair.Description);
+            Assert.Equal(testChair.PictureURL, gottanChair.PictureURL);
+            Assert.Equal(testChair.Categorys, gottanChair.Categorys);
+            Assert.Equal(testChair.Colors, gottanChair.Colors);
+            Assert.Equal(testChair.Designer, gottanChair.Designer);
+            Assert.Equal(testChair.Maker, gottanChair.Maker);
+            Assert.Equal(testChair.Tags, gottanChair.Tags);
+
+        }
+
+        [Fact]
+        public void GetChairByIdWhereIdDoesNotExistExpectExeption()
+        {
+
+        }
+
+        [Fact]
+        public void AddChairWithoutNameExpectExeption(){
+
+        }
+
+        [Fact]
+        public void AddChairWithoutPriceExpectExeption()
+        {
 
         }
 

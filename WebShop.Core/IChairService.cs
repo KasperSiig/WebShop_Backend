@@ -6,5 +6,6 @@ namespace WebShop.Core
     public interface IChairService
     {
         Chair AddChair(Chair chair);
+        Chair GetChairById(int id);
     }
 }

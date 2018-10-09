@@ -15,8 +15,7 @@ namespace WebShop.Infrastructure.Data
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Chair> Chairs { get; set; }
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<Colors> Colors { get; set; }
+        public DbSet<Color> Colors { get; set; }
         public DbSet<Designer> Designers { get; set; }
         public DbSet<Maker> Makers { get; set; }
         public DbSet<Tag> Tags { get; set; }

@@ -8,4 +8,7 @@
       <Folder Include="Relations" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="Category.cs" />
+    </ItemGroup>
 </Project>

@@ -14,6 +14,5 @@ namespace WebShop.Core.Entity
         public string Description { get; set; }
         public string PictureURL { get; set; }
         public List<Tag> Tags { get; set; }
-        public List<Category> Categorys { get; set; }
     }
 }

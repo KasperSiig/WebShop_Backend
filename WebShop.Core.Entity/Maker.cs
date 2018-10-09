@@ -4,7 +4,7 @@ namespace WebShop.Core.Entity
 {
     public class Maker
     {
-        public int Id { get; set; };
+        public int Id { get; set; }
         public string Name { get; set; }
         public List<Chair> Chairs { get; set; }
     }

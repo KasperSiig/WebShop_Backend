@@ -45,7 +45,7 @@ namespace WebShopWebAPI.Controllers
 
             if (filter != null)
             {
-                chairs = _ChairService.FilterChairs(chairs, filter)
+                chairs = _ChairService.FilterChairs(chairs, filter);
             }
             return Ok(chairs);
         }

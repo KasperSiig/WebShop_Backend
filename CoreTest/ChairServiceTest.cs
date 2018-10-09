@@ -10,12 +10,6 @@ namespace CoreTest
     public class ChairServiceTest
     {
 
-
-
-        public ChairServiceTest()
-        {
-        }
-
         [Fact]
         public void CreateValidChairTest(){
             //Setup
@@ -73,24 +67,60 @@ namespace CoreTest
         [Fact]
         public void GetChairByIdWhereIdDoesNotExistExpectExeption()
         {
+            //Setup
+            Mock<IChairRepository> mockChairRepo = new Mock<IChairRepository>();
 
+            mockChairRepo.Setup(x => x.GetChair(It.IsAny<int>())).Returns<int>(arg => null);
+
+            IChairService chairService = new ChairService(mockChairRepo.Object);
+
+            // Test
+            Chair gottanChair = null;
+
+            Assert.Throws<ArgumentException>(() => gottanChair = chairService.GetChairById(1));
+
+            Assert.Null(gottanChair);
         }
 
         [Fact]
         public void AddChairWithoutNameExpectExeption(){
+            //Setup
+            Mock<IChairRepository> mockChairRepo = new Mock<IChairRepository>();
+            IChairService chairService = new ChairService(mockChairRepo.Object);
 
+            //Test
+            var chair = new Chair() { Price = 1 };
+
+            Assert.Throws<ArgumentException>(() => chairService.AddChair(chair));
+            mockChairRepo.Verify(m => m.AddChair(chair), Times.Never());
         }
 
         [Fact]
         public void AddChairWithoutPriceExpectExeption()
         {
+            //Setup
+            Mock<IChairRepository> mockChairRepo = new Mock<IChairRepository>();
+            IChairService chairService = new ChairService(mockChairRepo.Object);
 
+            //Test
+            var chair = new Chair() { Name = "aName" };
+
+            Assert.Throws<ArgumentException>(() => chairService.AddChair(chair));
+            mockChairRepo.Verify(m => m.AddChair(chair), Times.Never());
         }
 
         [Fact]
-        public void GetAllChairs()
+        public void AddChairWithNegativePriceExpectExeption()
         {
+            //Setup
+            Mock<IChairRepository> mockChairRepo = new Mock<IChairRepository>();
+            IChairService chairService = new ChairService(mockChairRepo.Object);
 
+            //Test
+            var chair = new Chair() { Name = "aName", Price = -1 };
+
+            Assert.Throws<ArgumentException>(() => chairService.AddChair(chair));
+            mockChairRepo.Verify(m => m.AddChair(chair), Times.Never());
         }
 
         [Fact]
@@ -114,7 +144,12 @@ namespace CoreTest
         [Fact]
         public void DeleteChair()
         {
+            Mock<IChairRepository> mockChairRepo = new Mock<IChairRepository>();
+            ChairService chairService = new ChairService(mockChairRepo.Object);
 
+            chairService.DeleteChair(1);
+
+            mockChairRepo.Verify(m => m.DeleteChair(1), Times.Once());
         }
 
         [Fact]

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -13,6 +14,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using WebShop.Core.ApplicationService;
 using WebShop.Core.ApplicationService.Impl;
+using WebShop.Infrastructure.Data;
 
 namespace WebShopWebAPI
 {
@@ -35,6 +37,18 @@ namespace WebShopWebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            if (_env.IsDevelopment())
+            {
+                services.AddDbContext<WebShopContext>(
+                    opt => opt.UseSqlite("Data Source=webShop.db"));
+            }
+            else
+            {
+                services.AddDbContext<WebShopContext>(
+                    opt => opt
+                        .UseSqlServer(_conf.GetConnectionString("defaultConnection")));
+            }
+            
             services.AddScoped<IUserService, UserService>();
 
             services.AddMvc().AddJsonOptions(options =>
@@ -54,6 +68,11 @@ namespace WebShopWebAPI
             }
             else
             {
+                using (var scope = app.ApplicationServices.CreateScope())
+                {
+                    var ctx = scope.ServiceProvider.GetService<WebShopContext>();
+                    ctx.Database.EnsureCreated();
+                }
                 app.UseHsts();
             }
 

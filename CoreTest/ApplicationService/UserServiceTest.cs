@@ -17,7 +17,7 @@ namespace CoreTest.ApplicationService
         }
 
         [Fact]
-        public void CreateCustomerTest()
+        public void CreateValidCustomerTest()
         {
             var userService = new UserService(_mockUserRepo.Object);
             var cust = new Customer()
@@ -36,7 +36,7 @@ namespace CoreTest.ApplicationService
         }
         
         [Fact]
-        public void CreateEmployeeTest()
+        public void CreateValidEmployeeTest()
         {
             var userService = new UserService(_mockUserRepo.Object);
             var employee = new Employee()
@@ -53,11 +53,29 @@ namespace CoreTest.ApplicationService
         }
 
         [Fact]
-        public void GetUser()
+        public void GetValidUserById()
         {
             var usersService = new UserService(_mockUserRepo.Object);
             var user = usersService.GetUserById(1);
             Assert.NotNull(user);
+        }
+
+        [Fact]
+        public void UpdateValidUser()
+        {
+            var usersService = new UserService(_mockUserRepo.Object);
+            var user = new Customer();
+            usersService.Update(user);
+            _mockUserRepo.Verify(x => x.Update(It.IsAny<User>()), Times.Once);
+        }
+
+        [Fact]
+        public void DeleteValidUser()
+        {
+            var usersService = new UserService(_mockUserRepo.Object);
+            var user = new Customer();
+            usersService.Delete(user);
+            _mockUserRepo.Verify(x => x.Delete(It.IsAny<User>()), Times.Once);
         }
     }
 }

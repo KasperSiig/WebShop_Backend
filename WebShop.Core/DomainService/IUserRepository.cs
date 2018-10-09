@@ -6,5 +6,10 @@ namespace WebShop.Core.DomainService
     {
         User Create(User user);
         User ReadUserById(int id);
+<<<<<<< HEAD
+=======
+        User Update(User user);
+        User Delete(User user);
+>>>>>>> Added full crud for user
     }
 }

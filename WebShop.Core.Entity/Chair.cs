@@ -8,7 +8,7 @@ namespace WebShop.Core.Entity
         public int Id { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }
-        public Colors Colors { get; set; }
+        public List<Color> Colors { get; set; }
         public Designer Designer { get; set; }
         public Maker Maker { get; set; }
         public string Description { get; set; }

@@ -22,9 +22,19 @@ namespace WebShop.Core.ApplicationService.Impl
             return _userRepo.Create(user);
         }
 
-        public User GetUser(int id)
+        public User GetUserById(int id)
         {
-            return _userRepo.ReadUser(id);
+            return _userRepo.ReadUserById(id);
+        }
+
+        public User Update(User user)
+        {
+            return _userRepo.Update(user);
+        }
+
+        public User Delete(User user)
+        {
+            return _userRepo.Delete(user);
         }
     }
 }

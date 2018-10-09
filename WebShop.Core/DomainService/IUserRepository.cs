@@ -5,6 +5,8 @@ namespace WebShop.Core.DomainService
     public interface IUserRepository
     {
         User Create(User user);
-        User ReadUser(int id);
+        User ReadUserById(int id);
+        User Update(User user);
+        User Delete(User user);
     }
 }

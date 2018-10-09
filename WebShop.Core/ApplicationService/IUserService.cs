@@ -6,6 +6,8 @@ namespace WebShop.Core.ApplicationService
     {
         User CreateCustomer(User user);
         User CreateEmployee(User user);
-        User GetUser(int id);
+        User GetUserById(int id);
+        User Update(User user);
+        User Delete(User user);
     }
 }

@@ -10,6 +10,24 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+      <Version>2.1.4</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite">
+      <Version>2.1.4</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core">
+      <Version>2.1.4</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer">
+      <Version>2.1.4</Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WebShop.Core.Entity\WebShop.Core.Entity.csproj" />
+    <ProjectReference Include="..\WebShop.Core\WebShop.Core.csproj" />
+    <ProjectReference Include="..\WebShop.Infrastructure.Data\WebShop.Infrastructure.Data.csproj" />
   </ItemGroup>
 
 </Project>

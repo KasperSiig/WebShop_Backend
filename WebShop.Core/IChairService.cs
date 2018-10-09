@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using WebShop.Core.Entity;
 
 namespace WebShop.Core
@@ -7,5 +8,10 @@ namespace WebShop.Core
     {
         Chair AddChair(Chair chair);
         Chair GetChairById(int id);
+        void DeleteChair(int id);
+        List<Chair> GetAllChairs();
+        List<Chair> GetChairsPaged(int page, int itemsOnPage);
+        void UpdateChair(Chair Chair);
     }
 }
+

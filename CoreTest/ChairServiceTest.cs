@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using Moq;
 using WebShop.Core;
 using WebShop.Core.Entity;
@@ -91,7 +92,7 @@ namespace CoreTest
             //Test
             var chair = new Chair() { Price = 1 };
 
-            Assert.Throws<ArgumentException>(() => chairService.AddChair(chair));
+            Assert.Throws<InvalidDataException>(() => chairService.AddChair(chair));
             mockChairRepo.Verify(m => m.AddChair(chair), Times.Never());
         }
 
@@ -105,7 +106,7 @@ namespace CoreTest
             //Test
             var chair = new Chair() { Name = "aName" };
 
-            Assert.Throws<ArgumentException>(() => chairService.AddChair(chair));
+            Assert.Throws<InvalidDataException>(() => chairService.AddChair(chair));
             mockChairRepo.Verify(m => m.AddChair(chair), Times.Never());
         }
 
@@ -119,20 +120,53 @@ namespace CoreTest
             //Test
             var chair = new Chair() { Name = "aName", Price = -1 };
 
-            Assert.Throws<ArgumentException>(() => chairService.AddChair(chair));
+            Assert.Throws<InvalidDataException>(() => chairService.AddChair(chair));
             mockChairRepo.Verify(m => m.AddChair(chair), Times.Never());
         }
 
         [Fact]
         public void GetChairsPaged()
         {
+            //Setup
+            Mock<IChairRepository> mockChairRepo = new Mock<IChairRepository>();
 
+            List<Chair> chairsFull = new List<Chair>();
+
+            for (int i = 1; i < 30; i++)
+            {
+                chairsFull.Add(new Chair(){Id = i});
+            }
+
+            mockChairRepo.Setup(x => x.GetChairs()).Returns(() => chairsFull);
+
+            IChairService chairService = new ChairService(mockChairRepo.Object);
+
+            //Test
+            var page = 1;
+            var itemsOnPage = 10;
+            var chairsPaged = chairService.GetChairsPaged(page, itemsOnPage);
+
+            Assert.Equal(itemsOnPage, chairsPaged.Count);
+            Assert.Equal(1, chairsPaged[0].Id);
+            Assert.Equal(10, chairsPaged[9].Id);
+        }
+
+        [Fact]
+        public void GetChairsPagedWithZeroPagesAndItemsExpectExeption()
+        {
+            //Setup
+            Mock<IChairRepository> mockChairRepo = new Mock<IChairRepository>();
+            IChairService chairService = new ChairService(mockChairRepo.Object);
+
+            //Test
+            Assert.Throws<InvalidDataException>(() => chairService.GetChairsPaged(1,0));
+            Assert.Throws<InvalidDataException>(() => chairService.GetChairsPaged(0,1));
         }
 
         [Fact]
         public void UpdateChair()
         {
-
+             
         }
 
         [Fact]
@@ -145,7 +179,7 @@ namespace CoreTest
         public void DeleteChair()
         {
             Mock<IChairRepository> mockChairRepo = new Mock<IChairRepository>();
-            ChairService chairService = new ChairService(mockChairRepo.Object);
+            IChairService chairService = new ChairService(mockChairRepo.Object);
 
             chairService.DeleteChair(1);
 

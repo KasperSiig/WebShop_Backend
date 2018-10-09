@@ -13,8 +13,4 @@ namespace WebShop.Core
         Chair AddChair(Chair chair);
         int Count();
     }
-
-
-
-    
 }

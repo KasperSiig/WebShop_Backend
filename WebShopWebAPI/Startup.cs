@@ -13,7 +13,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using WebShop.Core.ApplicationService;
-using WebShop.Core.ApplicationService.Impl;
 using WebShop.Infrastructure.Data;
 
 namespace WebShopWebAPI
@@ -49,7 +48,7 @@ namespace WebShopWebAPI
                         .UseSqlServer(_conf.GetConnectionString("defaultConnection")));
             }
             
-            services.AddScoped<IUserService, UserService>();
+//            services.AddScoped<IUserService, UserService>();
 
             services.AddMvc().AddJsonOptions(options =>
             {

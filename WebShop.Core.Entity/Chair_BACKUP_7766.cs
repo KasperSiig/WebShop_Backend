@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using WebShop.Core.Entity.Relations;
 
@@ -14,6 +14,11 @@ namespace WebShop.Core.Entity
         public Maker Maker { get; set; }
         public string Description { get; set; }
         public string PictureURL { get; set; }
+<<<<<<< HEAD
+        public List<Tag> Tags { get; set; }
+=======
         public List<ChairTag> ChairTags { get; set; }
+        public List<ChairCategory> ChairCategories { get; set; }
+>>>>>>> fluentapi
     }
 }

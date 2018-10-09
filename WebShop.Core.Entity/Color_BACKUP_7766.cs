@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using WebShop.Core.Entity.Relations;
 
 namespace WebShop.Core.Entity
@@ -7,7 +7,8 @@ namespace WebShop.Core.Entity
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public List<ChairColor> ChairColors { get; set; }
+<<<<<<< HEAD
+        public List<Chair> Chairs { get; set; }
 
         public override bool Equals(object obj)
         {
@@ -15,5 +16,8 @@ namespace WebShop.Core.Entity
             return color != null &&
                    Id == color.Id;
         }
+=======
+        public List<ChairColor> ChairColors { get; set; }
+>>>>>>> fluentapi
     }
 }

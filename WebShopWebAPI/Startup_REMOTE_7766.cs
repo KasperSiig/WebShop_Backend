@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,7 +12,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using WebShop.Core;
 using WebShop.Core.ApplicationService;
 using WebShop.Infrastructure.Data;
 
@@ -20,8 +19,8 @@ namespace WebShopWebAPI
 {
     public class Startup
     {
-        public IHostingEnvironment _env { get; }
-        public IConfiguration _conf { get; }
+        private IHostingEnvironment _env;
+        private IConfiguration _conf { get; }
 
         public Startup(IHostingEnvironment env)
         {
@@ -40,7 +39,7 @@ namespace WebShopWebAPI
             if (_env.IsDevelopment())
             {
                 services.AddDbContext<WebShopContext>(
-                    opt => opt.UseSqlite("Data Source = webShop.db"));
+                    opt => opt.UseSqlite("Data Source=webShop.db"));
             }
             else
             {
@@ -48,15 +47,15 @@ namespace WebShopWebAPI
                     opt => opt
                         .UseSqlServer(_conf.GetConnectionString("defaultConnection")));
             }
+            
+//            services.AddScoped<IUserService, UserService>();
 
-            var MVC = services.AddMvc();
-            MVC.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            MVC.AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            services.AddMvc().AddJsonOptions(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
 
-            //services.AddScoped<IUserService, UserService>();
-
-            services.AddScoped<IChairService, ChairService>();
-
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

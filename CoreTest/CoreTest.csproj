@@ -21,4 +21,7 @@
     <ProjectReference Include="..\WebShop.Core\WebShop.Core.csproj" />
     <ProjectReference Include="..\WebShop.Core.Entity\WebShop.Core.Entity.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ApplicationService" />
+  </ItemGroup>
 </Project>

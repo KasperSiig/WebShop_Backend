@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using WebShop.Core.Entity.Relations;
 
@@ -15,5 +15,6 @@ namespace WebShop.Core.Entity
         public string Description { get; set; }
         public string PictureURL { get; set; }
         public List<ChairTag> ChairTags { get; set; }
+        public List<ChairCategory> ChairCategories { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,6 +14,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using WebShop.Core;
 using WebShop.Core.ApplicationService;
+using WebShop.Core.ApplicationService.Impl;
 using WebShop.Infrastructure.Data;
 
 namespace WebShopWebAPI
@@ -53,7 +54,7 @@ namespace WebShopWebAPI
             MVC.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             MVC.AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
-            //services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserService, UserService>();
 
             services.AddScoped<IChairService, ChairService>();
 

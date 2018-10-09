@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -48,12 +48,17 @@ namespace WebShopWebAPI
                     opt => opt
                         .UseSqlServer(_conf.GetConnectionString("defaultConnection")));
             }
+<<<<<<< HEAD
 
             var MVC = services.AddMvc();
             MVC.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             MVC.AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
-            //services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserService, UserService>();
+=======
+            
+//            services.AddScoped<IUserService, UserService>();
+>>>>>>> fluentapi
 
             services.AddScoped<IChairService, ChairService>();
 

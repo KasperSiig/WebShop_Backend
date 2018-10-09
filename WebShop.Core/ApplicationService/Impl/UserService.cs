@@ -25,8 +25,6 @@ namespace WebShop.Core.ApplicationService.Impl
         public User GetUserById(int id)
         {
             return _userRepo.ReadUserById(id);
-<<<<<<< HEAD
-=======
         }
 
         public User Update(User user)
@@ -37,7 +35,6 @@ namespace WebShop.Core.ApplicationService.Impl
         public User Delete(User user)
         {
             return _userRepo.Delete(user);
->>>>>>> Added full crud for user
         }
     }
 }

@@ -12,7 +12,7 @@ namespace WebShop.Core
         List<Chair> GetAllChairs();
         List<Chair> GetChairsPaged(int page, int itemsOnPage);
         void UpdateChair(Chair Chair);
-        List<Chair> filterChairs(List<Chair> chairs, Filter filter);
+        List<Chair> FilterChairs(List<Chair> chairs, Filter filter);
     }
 }
 

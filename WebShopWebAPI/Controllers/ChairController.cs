@@ -23,13 +23,16 @@ namespace WebShopWebAPI.Controllers
 
         // GET: api/chairs
         [HttpGet]
-        public ActionResult<IEnumerable<Chair>> Get([FromQuery] int page, [FromQuery] int items)
+        public ActionResult<IEnumerable<Chair>> Get([FromQuery] int page, [FromQuery] int items, [FromBody] Filter filter)
         {
             List<Chair> chairs;
 
             if (page < 1 || items < 1)
+            {
                 chairs = _ChairService.GetAllChairs();
+            }
             else
+            {
                 try
                 {
                     chairs = _ChairService.GetChairsPaged(page, items);
@@ -38,7 +41,12 @@ namespace WebShopWebAPI.Controllers
                 {
                     return BadRequest("The page number is to high");
                 }
-                
+            }
+
+            if (filter != null)
+            {
+                chairs = _ChairService.FilterChairs(chairs, filter)
+            }
             return Ok(chairs);
         }
 

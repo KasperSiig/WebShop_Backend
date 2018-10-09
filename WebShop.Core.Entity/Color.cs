@@ -2,7 +2,7 @@
 
 namespace WebShop.Core.Entity
 {
-    public class Tag
+    public class Color
     {
         public int Id { get; set; };
         public string Name { get; set; }

@@ -78,5 +78,19 @@ namespace WebShop.Core
 
             _ChairRepo.UpdateChair(Chair);
         }
+
+        public List<Chair> FilterChairs(List<Chair> chairs, Filter filter)
+        {
+            List<Chair> filtredChairs = new List<Chair>();
+
+            foreach (var chair in chairs)
+            {
+                if(filter.CompliesWithFilter(chair)){
+                    filtredChairs.Add(chair);
+                }
+            }
+
+            return filtredChairs;
+        }
     }
 }

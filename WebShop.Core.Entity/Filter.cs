@@ -6,13 +6,6 @@ namespace WebShop.Core.Entity
 {
     public class Filter
     {
-        public Filter()
-        {
-        }
-        //Designer
-        //Farve
-        //Tag
-
         public List<Designer> Designers { get; set; }
         public List<Color> Colors { get; set; }
         public List<Tag> Tags { get; set; }
@@ -43,7 +36,7 @@ namespace WebShop.Core.Entity
 
                 foreach (var color in Colors)
                 {
-                    if (!DoesContainColor(color, chair.Colors){
+                    if (!DoesContainColor(color, chair.Colors)){
                         return false;
                     }
                 }
@@ -58,7 +51,7 @@ namespace WebShop.Core.Entity
 
                 foreach (var tag in Tags)
                 {
-                    if (!DoesContainTag(tag, chair.Tags){
+                    if (!DoesContainTag(tag, chair.Tags)){
                         return false;
                     }
                 }

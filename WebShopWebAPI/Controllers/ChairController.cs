@@ -34,7 +34,7 @@ namespace WebShopWebAPI.Controllers
                 {
                     chairs = _ChairService.GetChairsPaged(page, items);
                 }
-                catch (ArgumentException ex)
+                catch (ArgumentException)
                 {
                     return BadRequest("The page number is to high");
                 }
@@ -51,7 +51,7 @@ namespace WebShopWebAPI.Controllers
             {
                 chair = _ChairService.GetChairById(id);
             }
-            catch (ArgumentException ex)
+            catch (ArgumentException)
             {
                 BadRequest("There is no chair with this id");
             }
@@ -66,7 +66,7 @@ namespace WebShopWebAPI.Controllers
             {
                 _ChairService.AddChair(chair);
             }
-            catch (InvalidDataException ex)
+            catch (InvalidDataException)
             {
                 return BadRequest("A chair needs a name and a positive price");
             }
@@ -84,7 +84,7 @@ namespace WebShopWebAPI.Controllers
             {
                 _ChairService.UpdateChair(chair);
             }
-            catch (ArgumentException ex)
+            catch (ArgumentException)
             {
                 BadRequest("There is no chair with this id");
             }
@@ -101,7 +101,7 @@ namespace WebShopWebAPI.Controllers
             {
                 _ChairService.DeleteChair(id);
             }
-            catch (ArgumentException ex)
+            catch (ArgumentException)
             {
                 BadRequest("There is no chair with this id");
             }

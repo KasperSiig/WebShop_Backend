@@ -9,7 +9,7 @@ namespace WebShop.Core.Entity
         public string Username { get; set; }
         public string PasswordHash { get; set; }
 
-        public Employee employee { get; set; }
-        public Customer customer { get; set; }
+        public Employee Employee { get; set; }
+        public Customer Customer { get; set; }
     }
 }

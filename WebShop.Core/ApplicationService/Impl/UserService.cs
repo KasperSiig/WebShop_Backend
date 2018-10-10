@@ -15,8 +15,8 @@ namespace WebShop.Core.ApplicationService.Impl
 
         public User CreateCustomer(User user)
         {
-            if (user.customer == null){
-                user.customer = new Customer();
+            if (user.Customer == null){
+                user.Customer = new Customer();
             }
 
             return _UserRepository.AddCustomer(user);
@@ -24,9 +24,9 @@ namespace WebShop.Core.ApplicationService.Impl
 
         public User CreateEmployee(User user)
         {
-            if (user.employee == null)
+            if (user.Employee == null)
             {
-                user.employee = new Employee();
+                user.Employee = new Employee();
             }
 
             return _UserRepository.AddCustomer(user);

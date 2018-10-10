@@ -60,13 +60,15 @@ namespace WebShop.Infrastructure.Data
             #endregion
 
             #region User
-            modelBuilder.Entity<User>()
-                        .HasOne(s => s.customer)
-                        .WithOne(s => s.User);
+            modelBuilder.Entity<Customer>()
+                        .HasOne(u => u.User)
+                        .WithOne(c => c.Customer)
+                        .HasForeignKey<User>(u => u.Id);
 
-            modelBuilder.Entity<User>()
-                        .HasOne(s => s.employee)
-                        .WithOne(s => s.User);
+            modelBuilder.Entity<Employee>()
+                        .HasOne(s => s.User)
+                        .WithOne(s => s.Employee)
+                        .HasForeignKey<User>(u => u.Id);
             #endregion
         }
     }

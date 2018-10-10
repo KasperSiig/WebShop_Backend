@@ -16,6 +16,7 @@ using WebShop.Core;
 using WebShop.Core.ApplicationService;
 using WebShop.Core.ApplicationService.Impl;
 using WebShop.Core.DomainService;
+using WebShop.Core.Entity;
 using WebShop.Infrastructure.Data;
 using WebShop.Infrastructure.Data.Repositories;
 
@@ -70,6 +71,13 @@ namespace WebShopWebAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                using (var scope = app.ApplicationServices.CreateScope())
+                {
+                    var ctx = scope.ServiceProvider.GetService<WebShopContext>();
+                    ctx.Database.EnsureDeleted();
+                    ctx.Database.EnsureCreated();
+                }
             }
             else
             {

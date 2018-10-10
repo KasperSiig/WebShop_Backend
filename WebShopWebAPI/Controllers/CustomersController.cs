@@ -41,6 +41,7 @@ namespace WebShopWebAPI.Controllers
         [HttpPost]
         public ActionResult<User> Post([FromBody]User user)
         {
+            user.Employee = null;
             return Ok(_UserService.CreateCustomer(user));
         }
 

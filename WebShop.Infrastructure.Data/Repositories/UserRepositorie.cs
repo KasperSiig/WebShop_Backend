@@ -42,8 +42,8 @@ namespace WebShop.Infrastructure.Data.Repositories
         public User UpdateUser(User user)
         {
             _ctx.Attach(user).State = EntityState.Modified;
-            _ctx.Entry(user).Reference(u => u.customer).IsModified = true;
-            _ctx.Entry(user).Reference(u => u.employee).IsModified = true;
+            _ctx.Entry(user).Reference(u => u.Customer).IsModified = true;
+            _ctx.Entry(user).Reference(u => u.Employee).IsModified = true;
             _ctx.SaveChanges();
 
             return user;

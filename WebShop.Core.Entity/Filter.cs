@@ -24,14 +24,14 @@ namespace WebShop.Core.Entity
             if (Colors.Any())
                 foreach (var color in Colors)
                     foreach (var chairColor in chair.ChairColors)
-                        if (chairColor.Color.Name.Equals(color.Name))
+                        if (chairColor.Color.Name.ToLower().Equals(color.Name.ToLower()))
                             return true;
 
             if (Tags.Any())
                 foreach (var tag in Tags)
-                    foreach (var chairTag in chair.ChairTags)
-                        if (chairTag.Tag.Name.Equals(tag.Name))
-                            return true;
+                foreach (var chairTag in chair.ChairTags)
+                    if (chairTag.Tag.Name.ToLower().Equals(tag.Name.ToLower()))
+                        return true;
 
             if (Makers.Any())
                 foreach (var maker in Makers)

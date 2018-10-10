@@ -7,7 +7,7 @@ namespace WebShop.Infrastructure.Data
 {
     public class WebShopContext : DbContext
     {
-        protected WebShopContext(DbContextOptions options) : base(options)
+        public WebShopContext(DbContextOptions options) : base(options)
         {
         }
 

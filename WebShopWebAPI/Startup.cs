@@ -15,6 +15,7 @@ using Newtonsoft.Json;
 using WebShop.Core;
 using WebShop.Core.ApplicationService;
 using WebShop.Infrastructure.Data;
+using WebShop.Infrastructure.Data.Repositories;
 
 namespace WebShopWebAPI
 {
@@ -53,9 +54,9 @@ namespace WebShopWebAPI
             MVC.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             MVC.AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
-            //services.AddScoped<IUserService, UserService>();
-
+            
             services.AddScoped<IChairService, ChairService>();
+            services.AddScoped<IChairRepository, ChairRepository>();
 
         }
 
@@ -65,6 +66,11 @@ namespace WebShopWebAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                using (var scope = app.ApplicationServices.CreateScope())
+                {
+                    var ctx = scope.ServiceProvider.GetService<WebShopContext>();
+                    DBInitializer.SeedDB(ctx);
+                }
             }
             else
             {

@@ -12,7 +12,8 @@ using WebShop.Core.Entity;
 namespace WebShopWebAPI.Controllers
 {
     [Route("api/[controller]")]
-    public class ChairsController : Controller
+    [ApiController]
+    public class ChairsController : ControllerBase
     {
         private readonly IChairService _ChairService;
 
@@ -23,7 +24,10 @@ namespace WebShopWebAPI.Controllers
 
         // GET: api/chairs
         [HttpGet]
-        public ActionResult<IEnumerable<Chair>> Get([FromQuery] int page, [FromQuery] int items, [FromBody] Filter filter)
+        public ActionResult<IEnumerable<Chair>> Get(
+            [FromQuery] int page, 
+            [FromQuery] int items, 
+            [FromQuery] Filter filter)
         {
             List<Chair> chairs;
 

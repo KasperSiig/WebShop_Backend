@@ -19,7 +19,7 @@ namespace WebShop.Core.ApplicationService.Impl
                 user.Customer = new Customer();
             }
 
-            return _UserRepository.AddCustomer(user);
+            return _UserRepository.AddUser(user);
         }
 
         public User CreateEmployee(User user)
@@ -29,7 +29,7 @@ namespace WebShop.Core.ApplicationService.Impl
                 user.Employee = new Employee();
             }
 
-            return _UserRepository.AddCustomer(user);
+            return _UserRepository.AddUser(user);
         }
 
         public User Delete(User user)

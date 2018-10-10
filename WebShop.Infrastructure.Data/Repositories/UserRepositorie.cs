@@ -15,10 +15,17 @@ namespace WebShop.Infrastructure.Data.Repositories
             _ctx = ctx;
         }
 
-        public User AddCustomer(User user)
+        public User AddUser(User user)
         {
             var userSaved = _ctx.Add(user).Entity;
+
+            //Test
+            _ctx.Entry(user).Reference(u => u.Customer).IsModified = true;
+            _ctx.Entry(user).Reference(u => u.Employee).IsModified = true;
+            //test slut
+
             _ctx.SaveChanges();
+
             return userSaved;
         }
 

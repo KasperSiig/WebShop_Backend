@@ -5,7 +5,7 @@ namespace WebShop.Core.DomainService
 {
     public interface IUserRepository
     {
-        User AddCustomer(User user);
+        User AddUser(User user);
         User Delete(User user);
         User GetUserById(int id);
         User GetUserByUsername(string username);

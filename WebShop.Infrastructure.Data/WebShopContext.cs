@@ -23,22 +23,7 @@ namespace WebShop.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            #region ChairCategory
 
-            modelBuilder.Entity<ChairCategory>()
-                .HasKey(t => new {t.ChairId, t.CategoryId});
-
-            modelBuilder.Entity<ChairCategory>()
-                .HasOne(cc => cc.Chair)
-                .WithMany(c => c.ChairCategories)
-                .HasForeignKey(cc => cc.ChairId);
-
-            modelBuilder.Entity<ChairCategory>()
-                .HasOne(cc => cc.Category)
-                .WithMany(c => c.ChairCategories)
-                .HasForeignKey(cc => cc.CategoryId);
-
-            #endregion
 
             #region ChairColor
 

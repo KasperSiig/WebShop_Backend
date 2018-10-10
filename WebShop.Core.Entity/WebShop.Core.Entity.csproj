@@ -11,4 +11,7 @@
     <ItemGroup>
       <Compile Remove="Category.cs" />
     </ItemGroup>
+    <ItemGroup>
+      <None Remove="Tag.cs.orig" />
+    </ItemGroup>
 </Project>

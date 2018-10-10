@@ -14,7 +14,10 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using WebShop.Core;
 using WebShop.Core.ApplicationService;
+using WebShop.Core.ApplicationService.Impl;
+using WebShop.Core.DomainService;
 using WebShop.Infrastructure.Data;
+using WebShop.Infrastructure.Data.Repositories;
 
 namespace WebShopWebAPI
 {
@@ -53,10 +56,12 @@ namespace WebShopWebAPI
             MVC.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             MVC.AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
-            //services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserService, UserService>();
 
             services.AddScoped<IChairService, ChairService>();
 
+            services.AddScoped<IUserRepository, UserRepositorie>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

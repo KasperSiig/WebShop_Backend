@@ -7,7 +7,7 @@ namespace WebShop.Infrastructure.Data
 {
     public class WebShopContext : DbContext
     {
-        protected WebShopContext(DbContextOptions options) : base(options)
+        public WebShopContext(DbContextOptions options) : base(options)
         {
         }
 
@@ -28,7 +28,7 @@ namespace WebShop.Infrastructure.Data
             #region ChairColor
 
             modelBuilder.Entity<ChairColor>()
-                .HasKey(t => new {t.ChairId, t.ColorId});
+                .HasKey(t => new { t.ChairId, t.ColorId });
 
             modelBuilder.Entity<ChairColor>()
                 .HasOne(cc => cc.Chair)
@@ -45,7 +45,7 @@ namespace WebShop.Infrastructure.Data
             #region ChairTag
 
             modelBuilder.Entity<ChairTag>()
-                .HasKey(t => new {t.ChairId, t.TagId});
+                .HasKey(t => new { t.ChairId, t.TagId });
 
             modelBuilder.Entity<ChairTag>()
                 .HasOne(ct => ct.Chair)
@@ -57,6 +57,16 @@ namespace WebShop.Infrastructure.Data
                 .WithMany(t => t.ChairTags)
                 .HasForeignKey(ct => ct.TagId);
 
+            #endregion
+
+            #region User
+            modelBuilder.Entity<User>()
+                        .HasOne(s => s.customer)
+                        .WithOne(s => s.User);
+
+            modelBuilder.Entity<User>()
+                        .HasOne(s => s.employee)
+                        .WithOne(s => s.User);
             #endregion
         }
     }

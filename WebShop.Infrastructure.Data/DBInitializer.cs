@@ -115,7 +115,7 @@ namespace WebShop.Infrastructure.Data
                 {
                     new ChairTag()
                     {
-                        Tag = trebenet
+                        Tag = staalstel
                     }
                 },
                 Description = "Dette er en meget fin stol",

@@ -54,11 +54,9 @@ namespace WebShopWebAPI
             MVC.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             MVC.AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
+            
             services.AddScoped<IChairService, ChairService>();
             services.AddScoped<IChairRepository, ChairRepository>();
-
-            services.AddScoped<IFilterService, FilterService>();
-            services.AddScoped<IFilterRepository, FilterRepository>();
 
         }
 
@@ -85,7 +83,7 @@ namespace WebShopWebAPI
             }
 
             app.UseHttpsRedirection();
-            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader());
+            app.UseCors(builder => builder.AllowAnyOrigin());
             app.UseMvc();
         }
     }

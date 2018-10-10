@@ -34,6 +34,7 @@ namespace WebShopWebAPI.Controllers
             [FromQuery] string makers)
         {
             List<Chair> chairs;
+
             var colorsList = new List<Color>();
             if (colors != null)
             {
@@ -54,10 +55,6 @@ namespace WebShopWebAPI.Controllers
                 var designersSplit = designers.Split(',').ToList();
                 designersSplit.ForEach(designer =>
                 {
-                    if (designer == "") return;
-                    
-                    designer = designer.Replace("%20", " ");
-                    Console.WriteLine("designer is: " + designer);
                     var firstname = designer.Split(' ')[0];
                     var lastname = designer.Split(' ')[1];
                     designersList.Add(new Designer() {FirstName = firstname, LastName = lastname});

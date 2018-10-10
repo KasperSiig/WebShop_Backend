@@ -19,10 +19,12 @@ namespace WebShop.Infrastructure.Data.Repositories
         {
             var userSaved = _ctx.Add(user).Entity;
 
+            /*Dette hjalp ikke, slettes når problemmet er løst
             //Test
             _ctx.Entry(user).Reference(u => u.Customer).IsModified = true;
             _ctx.Entry(user).Reference(u => u.Employee).IsModified = true;
             //test slut
+            */
 
             _ctx.SaveChanges();
 

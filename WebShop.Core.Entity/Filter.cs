@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
+using WebShop.Core.Entity.Relations;
 
 namespace WebShop.Core.Entity
 {
@@ -29,14 +30,14 @@ namespace WebShop.Core.Entity
 
             if (Colors.Count >= 1)
             {
-                if (chair.Colors == null || chair.Colors.Count < 1)
+                if (chair.ChairColors == null || chair.ChairColors.Count < 1)
                 {
                     return false;
                 }
 
                 foreach (var color in Colors)
                 {
-                    if (!DoesContainColor(color, chair.Colors)){
+                    if (!DoesContainColor(color, chair.ChairColors)){
                         return false;
                     }
                 }
@@ -44,14 +45,14 @@ namespace WebShop.Core.Entity
 
             if (Tags.Count >= 1)
             {
-                if (chair.Tags == null || chair.Colors.Count < 1)
+                if (chair.ChairTags == null || chair.ChairColors.Count < 1)
                 {
                     return false;
                 }
 
                 foreach (var tag in Tags)
                 {
-                    if (!DoesContainTag(tag, chair.Tags)){
+                    if (!DoesContainTag(tag, chair.ChairTags)){
                         return false;
                     }
                 }
@@ -60,11 +61,11 @@ namespace WebShop.Core.Entity
             return true;
         }
 
-        private bool DoesContainTag(Tag tag, List<Tag> tags)
+        private bool DoesContainTag(Tag tag, List<ChairTag> tags)
         {
             foreach (var chairTag in tags)
             {
-                if (tag.Equals(chairTag))
+                if (tag.Equals(chairTag.Tag))
                 {
                     return true;
                 }
@@ -72,11 +73,11 @@ namespace WebShop.Core.Entity
             return false;
         }
 
-        private bool DoesContainColor(Color color, List<Color> colors)
+        private bool DoesContainColor(Color color, List<ChairColor> colors)
         {
             foreach (var chairColor in colors)
             {
-                if (chairColor.Equals(color))
+                if (chairColor.Color.Equals(color))
                 {
                     return true;
                 }

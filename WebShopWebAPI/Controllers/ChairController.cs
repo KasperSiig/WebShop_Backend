@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Internal;
 using WebShop.Core;
 using WebShop.Core.Entity;
 
@@ -25,11 +26,55 @@ namespace WebShopWebAPI.Controllers
         // GET: api/chairs
         [HttpGet]
         public ActionResult<IEnumerable<Chair>> Get(
-            [FromQuery] int page, 
-            [FromQuery] int items, 
-            [FromQuery] Filter filter)
+            [FromQuery] int page,
+            [FromQuery] int items,
+            [FromQuery] string designers,
+            [FromQuery] string tags,
+            [FromQuery] string colors,
+            [FromQuery] string makers)
         {
             List<Chair> chairs;
+
+            var colorsList = new List<Color>();
+            if (colors != null)
+            {
+                var colorsSplit = colors.Split(',').ToList();
+                colorsSplit.ForEach(color => colorsList.Add(new Color() {Name = color}));
+            }
+
+            var tagsList = new List<Tag>();
+            if (tags != null)
+            {
+                var tagsSplit = tags.Split(',').ToList();
+                tagsSplit.ForEach(tag => tagsList.Add(new Tag() {Name = tag}));
+            }
+
+            var designersList = new List<Designer>();
+            if (designers != null)
+            {
+                var designersSplit = designers.Split(',').ToList();
+                designersSplit.ForEach(designer =>
+                {
+                    var firstname = designer.Split(' ')[0];
+                    var lastname = designer.Split(' ')[1];
+                    designersList.Add(new Designer() {FirstName = firstname, LastName = lastname});
+                });
+            }
+
+            var makersList = new List<Maker>();
+            if (makers != null)
+            {
+                var makersSplit = makers.Split(',').ToList();
+                makersSplit.ForEach(maker => makersList.Add(new Maker() {Name = maker}));
+            }
+
+            var filter = new Filter()
+            {
+                Colors = colorsList,
+                Tags = tagsList,
+                Designers = designersList,
+                Makers = makersList
+            };
 
             if (page < 1 || items < 1)
             {
@@ -45,12 +90,17 @@ namespace WebShopWebAPI.Controllers
                 {
                     return BadRequest("The page number is to high");
                 }
-            }
 
-            if (filter != null)
+                
+            }
+            if (colorsList.Any()
+                || tagsList.Any()
+                || designersList.Any()
+                || makersList.Any())
             {
                 chairs = _ChairService.FilterChairs(chairs, filter);
             }
+
             return Ok(chairs);
         }
 
@@ -67,12 +117,13 @@ namespace WebShopWebAPI.Controllers
             {
                 BadRequest("There is no chair with this id");
             }
-            return Ok(chair);  
+
+            return Ok(chair);
         }
 
         // POST api/chairs
         [HttpPost]
-        public ActionResult Post([FromBody]Chair chair)
+        public ActionResult Post([FromBody] Chair chair)
         {
             try
             {
@@ -88,7 +139,7 @@ namespace WebShopWebAPI.Controllers
 
         // PUT api/chairs/5
         [HttpPut("{id}")]
-        public ActionResult Put(int id, [FromBody]Chair chair)
+        public ActionResult Put(int id, [FromBody] Chair chair)
         {
             chair.Id = id;
 

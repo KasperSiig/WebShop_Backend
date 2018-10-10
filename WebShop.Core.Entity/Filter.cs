@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
+using System.Linq;
 using WebShop.Core.Entity.Relations;
 
 namespace WebShop.Core.Entity
@@ -10,90 +11,33 @@ namespace WebShop.Core.Entity
         public List<Designer> Designers { get; set; }
         public List<Color> Colors { get; set; }
         public List<Tag> Tags { get; set; }
+        public List<Maker> Makers { get; set; }
 
 
         public bool CompliesWithFilter(Chair chair)
         {
+            if (Designers.Any())
+                foreach (var designer in Designers)
+                    if (designer.FirstName.ToLower().Equals(chair.Designer.FirstName.ToLower()))
+                        return true;
 
-            if (Designers.Count >= 1)
-            {
-                if (chair.Designer == null)
-                {
-                    return false;
-                }
-
-                if (!DoesContainDesigner(chair.Designer, Designers))
-                {
-                    return false;
-                }
-            }
-
-            if (Colors.Count >= 1)
-            {
-                if (chair.ChairColors == null || chair.ChairColors.Count < 1)
-                {
-                    return false;
-                }
-
+            if (Colors.Any())
                 foreach (var color in Colors)
-                {
-                    if (!DoesContainColor(color, chair.ChairColors)){
-                        return false;
-                    }
-                }
-            }
+                    foreach (var chairColor in chair.ChairColors)
+                        if (chairColor.Color.Name.Equals(color.Name))
+                            return true;
 
-            if (Tags.Count >= 1)
-            {
-                if (chair.ChairTags == null || chair.ChairColors.Count < 1)
-                {
-                    return false;
-                }
-
+            if (Tags.Any())
                 foreach (var tag in Tags)
-                {
-                    if (!DoesContainTag(tag, chair.ChairTags)){
-                        return false;
-                    }
-                }
-            }
+                    foreach (var chairTag in chair.ChairTags)
+                        if (chairTag.Tag.Name.Equals(tag.Name))
+                            return true;
 
-            return true;
-        }
-
-        private bool DoesContainTag(Tag tag, List<ChairTag> tags)
-        {
-            foreach (var chairTag in tags)
-            {
-                if (tag.Equals(chairTag.Tag))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        private bool DoesContainColor(Color color, List<ChairColor> colors)
-        {
-            foreach (var chairColor in colors)
-            {
-                if (chairColor.Color.Equals(color))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        private bool DoesContainDesigner(Designer designer, List<Designer> designers)
-        {
-            foreach (var filterDesigner in designers)
-            {
-                if (filterDesigner.Equals(designer))
-                {
-                    return true;
-                }
-            }
+            if (Makers.Any())
+                foreach (var maker in Makers)
+                    if (maker.Name.ToLower().Equals(chair.Maker.Name.ToLower()))
+                        return true;
+            
             return false;
         }
     }

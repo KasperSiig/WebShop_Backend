@@ -12,5 +12,6 @@ namespace WebShop.Core
         void DeleteChair(int chairId);
         Chair AddChair(Chair chair);
         int Count();
+        void FillMissingProps(Chair chair);
     }
 }

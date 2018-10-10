@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using WebShop.Core.Entity;
+using WebShop.Core.Entity.Relations;
 
 namespace WebShop.Core
 {
@@ -52,7 +53,8 @@ namespace WebShop.Core
             _ChairRepo.DeleteChair(id);
         }
 
-        public List<Chair> GetAllChairs(){
+        public List<Chair> GetAllChairs()
+        {
             return _ChairRepo.GetChairs().ToList();
         }
 
@@ -85,6 +87,7 @@ namespace WebShop.Core
 
             foreach (var chair in chairs)
             {
+                _ChairRepo.FillMissingProps(chair);
                 if(filter.CompliesWithFilter(chair)){
                     filtredChairs.Add(chair);
                 }

@@ -24,7 +24,9 @@ namespace WebShopWebAPI.Controllers
         [HttpGet("{id}")]
         public ActionResult<User> Get(int id)
         {
-            return Ok(_UserService.GetUserById(id));
+            var user = _UserService.GetUserById(id);
+            user.PasswordHash = null; //because we dont like to send hashed passwords over the inthernet when it is not needed
+            return Ok(user);
         }
 
         // POST api/values
@@ -38,7 +40,9 @@ namespace WebShopWebAPI.Controllers
                 }
                 else
                 {
-                    return Ok(_UserService.CreateEmployee(user));
+                    var returnedUser = _UserService.CreateEmployee(user);
+                    returnedUser.PasswordHash = null;
+                    return Ok(returnedUser);
                 }
 
             }
@@ -46,7 +50,10 @@ namespace WebShopWebAPI.Controllers
             {
                 if (user.Employee == null)
                 {
-                    return Ok(_UserService.CreateCustomer(user));
+
+                    var returnedUser = _UserService.CreateCustomer(user);
+                    returnedUser.PasswordHash = null;
+                    return Ok(returnedUser);
                 }
                 else
                 {
@@ -59,9 +66,15 @@ namespace WebShopWebAPI.Controllers
         [HttpPost("login")]
         public ActionResult<User> PostLogin([FromBody]User user)
         {
+            if (user.Username == null || user.PasswordHash == null){
+                return BadRequest("The user should have a username and password");
+            }
+
             User logInUser = _UserService.Login(user);
+
             logInUser.PasswordHash = null;
-            return Ok(_UserService.Login(user));
+
+            return Ok(logInUser);
         }
 
 
@@ -70,14 +83,23 @@ namespace WebShopWebAPI.Controllers
         public ActionResult<User> Put(int id, [FromBody]User user)
         {
             user.Id = id;
-            return Ok(_UserService.Update(user));
+            var returnedUser = _UserService.Update(user);
+
+            returnedUser.PasswordHash = null;
+
+            return Ok(returnedUser);
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
         public ActionResult<User> Delete(int id)
         {
-            return Ok(_UserService.Delete(new User() { Id = id }));
+
+            var returnedUser = _UserService.Delete(new User() { Id = id });
+
+            returnedUser.PasswordHash = null;
+
+            return Ok(returnedUser);
         }
 
     }

@@ -63,7 +63,15 @@ namespace WebShopWebAPI.Controllers
                 return BadRequest("The user should have a username and password");
             }
 
-            return Ok(_UserService.Login(user));
+            try
+            {
+                return Ok(_UserService.Login(user));
+            }
+            catch (ArgumentException)
+            {
+                return Unauthorized();
+            }
+
         }
 
 

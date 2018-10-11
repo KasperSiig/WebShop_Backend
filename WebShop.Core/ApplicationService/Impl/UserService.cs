@@ -21,7 +21,7 @@ namespace WebShop.Core.ApplicationService.Impl
 
             var returnedUser = _UserRepository.AddUser(user);
 
-            returnedUser.PasswordHash = null; //because we dont like to send hashed passwords over the inthernet when it is not needed
+            returnedUser.PasswordHash = null; //Because we dont like to send hashed passwords around when it is not needed
 
             return returnedUser;
         }

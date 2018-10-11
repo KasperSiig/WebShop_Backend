@@ -179,6 +179,7 @@ namespace CoreTest
         public void DeleteChair()
         {
             Mock<IChairRepository> mockChairRepo = new Mock<IChairRepository>();
+            mockChairRepo.Setup(x => x.GetChair(It.IsAny<int>())).Returns(() => new Chair());
             IChairService chairService = new ChairService(mockChairRepo.Object);
 
             chairService.DeleteChair(1);

@@ -25,6 +25,7 @@ namespace WebShop.Infrastructure.Data.Repositories
             _ctx.Entry(user).Reference(u => u.Employee).IsModified = true;
             //test slut
             */
+            var entries = _ctx.ChangeTracker.Entries();
 
             _ctx.SaveChanges();
 

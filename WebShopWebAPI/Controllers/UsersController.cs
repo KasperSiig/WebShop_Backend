@@ -55,6 +55,16 @@ namespace WebShopWebAPI.Controllers
             }
         }
 
+        // POST api/users/login
+        [HttpPost("login")]
+        public ActionResult<User> PostLogin([FromBody]User user)
+        {
+            User logInUser = _UserService.Login(user);
+            logInUser.PasswordHash = null;
+            return Ok(_UserService.Login(user));
+        }
+
+
         // PUT api/values/5
         [HttpPut("{id}")]
         public ActionResult<User> Put(int id, [FromBody]User user)

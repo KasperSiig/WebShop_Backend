@@ -41,7 +41,10 @@ namespace WebShop.Infrastructure.Data.Repositories
 
         public User GetUserById(int id)
         {
-            return _ctx.Users.FirstOrDefault(u => u.Id == id);
+            return _ctx.Users
+                       .Include(u => u.Customer)
+                       .Include(u => u.Employee)
+                       .FirstOrDefault(u => u.Id == id);
         }
 
         public User GetUserByUsername(string username)

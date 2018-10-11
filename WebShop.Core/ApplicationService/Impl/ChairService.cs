@@ -76,7 +76,6 @@ namespace WebShop.Core
 
         public void UpdateChair(Chair Chair)
         {
-            GetChairById(Chair.Id); //Check if there is a chair with the id in the repositorie
 
             _ChairRepo.UpdateChair(Chair);
         }

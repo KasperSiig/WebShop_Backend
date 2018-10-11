@@ -11,25 +11,14 @@ using WebShop.Core.Entity;
 namespace WebShopWebAPI.Controllers
 {
     [Route("api/[controller]")]
-    public class EmployeesController : Controller
+    public class UsersController : Controller
     {
         private readonly IUserService _UserService;
 
-        public EmployeesController(IUserService userService)
+        public UsersController(IUserService userService)
         {
             _UserService = userService;
         }
-
-        /*
-        // GET: api/values
-        [HttpGet] 
-        public IEnumerable<string> Get()
-        {
-            return null;
-        }
-        */
-
-
 
         // GET api/values/5
         [HttpGet("{id}")]
@@ -42,17 +31,28 @@ namespace WebShopWebAPI.Controllers
         [HttpPost]
         public ActionResult<User> Post([FromBody]User user)
         {
-            user.Customer = null;
-            return Ok(_UserService.CreateEmployee(user));
-        }
+            if (user.Customer == null){
 
-        // POST api/values
-        [HttpPost("login")]
-        public ActionResult<User> PostLogin([FromBody]User user)
-        {
-            User logInUser = _UserService.Login(user);
-            logInUser.PasswordHash = null;
-            return Ok(_UserService.Login(user));
+                if(user.Employee == null){
+                    return BadRequest("A user needs to have a Customer or a Employee");
+                }
+                else
+                {
+                    return Ok(_UserService.CreateEmployee(user));
+                }
+
+            }
+            else
+            {
+                if (user.Employee == null)
+                {
+                    return Ok(_UserService.CreateCustomer(user));
+                }
+                else
+                {
+                    return BadRequest("A user needs to have either a Customer or a Employee");
+                }
+            }
         }
 
         // PUT api/values/5
@@ -67,7 +67,9 @@ namespace WebShopWebAPI.Controllers
         [HttpDelete("{id}")]
         public ActionResult<User> Delete(int id)
         {
-            return Ok(_UserService.Delete(new User(){Id = id}));
+            return Ok(_UserService.Delete(new User() { Id = id }));
         }
+
     }
 }
+

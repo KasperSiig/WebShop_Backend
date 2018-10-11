@@ -26,4 +26,7 @@
     <ProjectReference Include="..\WebShop.Infrastructure.Data\WebShop.Infrastructure.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Controllers\CustomersController.cs" />
+  </ItemGroup>
 </Project>

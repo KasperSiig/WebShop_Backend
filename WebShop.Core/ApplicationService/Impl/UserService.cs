@@ -19,7 +19,11 @@ namespace WebShop.Core.ApplicationService.Impl
                 user.Customer = new Customer();
             }
 
-            return _UserRepository.AddUser(user);
+            var returnedUser = _UserRepository.AddUser(user);
+
+            returnedUser.PasswordHash = null; //because we dont like to send hashed passwords over the inthernet when it is not needed
+
+            return returnedUser;
         }
 
         public User CreateEmployee(User user)
@@ -29,17 +33,30 @@ namespace WebShop.Core.ApplicationService.Impl
                 user.Employee = new Employee();
             }
 
-            return _UserRepository.AddUser(user);
+            var returnedUser = _UserRepository.AddUser(user);
+
+            returnedUser.PasswordHash = null;
+
+            return returnedUser;
         }
 
         public User Delete(User user)
         {
-            return _UserRepository.Delete(user);
+            var returnedUser = _UserRepository.Delete(user);
+
+            returnedUser.PasswordHash = null;
+
+            return returnedUser;
+
         }
 
         public User GetUserById(int id)
         {
-            return _UserRepository.GetUserById(id);
+            var returnedUser = _UserRepository.GetUserById(id);
+
+            returnedUser.PasswordHash = null;
+
+            return returnedUser;
         }
 
         public User Login(User user)
@@ -51,12 +68,15 @@ namespace WebShop.Core.ApplicationService.Impl
                 throw new ArgumentException("The Username and/or Password was not correct");
             }
 
+            loggedIn.PasswordHash = null;
+
             return loggedIn;
         }
 
         public User Update(User user)
         {
             User userUpdated = _UserRepository.UpdateUser(user);
+            userUpdated.PasswordHash = null;
             return userUpdated;
         }
     }

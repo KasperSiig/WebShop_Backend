@@ -27,7 +27,9 @@ namespace WebShop.Infrastructure.Data.Repositories
 
         public Chair GetChair(int id)
         {
-            return _ctx.Chairs.FirstOrDefault(c => c.Id == id);
+            return _ctx.Chairs
+                .Include(c => c.Designer)
+                .FirstOrDefault(c => c.Id == id);
         }
 
         public void UpdateChair(Chair chair)

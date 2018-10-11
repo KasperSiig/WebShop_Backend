@@ -18,8 +18,13 @@ using WebShop.Core.ApplicationService.Impl;
 using WebShop.Core.DomainService;
 using WebShop.Core.Entity;
 using WebShop.Infrastructure.Data;
+<<<<<<< HEAD
 using WebShop.Infrastructure.Data.Repositories;
 
+=======
+using WebShop.Infrastructure.Data.Repositories;
+
+>>>>>>> UserBranch
 namespace WebShopWebAPI
 {
     public class Startup
@@ -57,8 +62,11 @@ namespace WebShopWebAPI
             MVC.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             MVC.AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
+<<<<<<< HEAD
+=======
             services.AddScoped<IUserService, UserService>();
 
+>>>>>>> UserBranch
             services.AddScoped<IChairService, ChairService>();
             services.AddScoped<IChairRepository, ChairRepository>();
 
@@ -75,10 +83,19 @@ namespace WebShopWebAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+<<<<<<< HEAD
                 using (var scope = app.ApplicationServices.CreateScope())
                 {
                     var ctx = scope.ServiceProvider.GetService<WebShopContext>();
                     DBInitializer.SeedDB(ctx);
+=======
+
+                using (var scope = app.ApplicationServices.CreateScope())
+                {
+                    var ctx = scope.ServiceProvider.GetService<WebShopContext>();
+                    ctx.Database.EnsureDeleted();
+                    ctx.Database.EnsureCreated();
+>>>>>>> UserBranch
                 }
             }
             else

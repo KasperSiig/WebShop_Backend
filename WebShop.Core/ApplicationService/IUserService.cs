@@ -9,5 +9,6 @@ namespace WebShop.Core.ApplicationService
         User GetUserById(int id);
         User Update(User user);
         User Delete(User user);
+        User Login(User user);
     }
 }

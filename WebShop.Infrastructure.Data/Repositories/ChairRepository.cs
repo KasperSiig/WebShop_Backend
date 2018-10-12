@@ -18,11 +18,25 @@ namespace WebShop.Infrastructure.Data.Repositories
 
         public IEnumerable<Chair> GetChairs()
         {
-            return _ctx.Chairs
+            var chairs = _ctx.Chairs
                 .Include(c => c.Designer)
                 .Include(c => c.Maker)
                 .Include(c => c.ChairColors)
                 .Include(c => c.ChairTags);
+
+            foreach (var chair in chairs)
+            {
+                foreach (var chairColor in chair.ChairColors)
+                {
+                    chairColor.Color = _ctx.Colors.FirstOrDefault(c => c.Id.Equals(chairColor.ColorId));
+                }
+
+                foreach (var chairTag in chair.ChairTags)
+                {
+                    chairTag.Tag = _ctx.Tags.FirstOrDefault(t => t.Id.Equals(chairTag.TagId));
+                }
+            }
+            return chairs;
         }
 
         public Chair GetChair(int id)
@@ -34,8 +48,32 @@ namespace WebShop.Infrastructure.Data.Repositories
 
         public void UpdateChair(Chair chair)
         {
-            _ctx.Entry(chair).State = EntityState.Modified;
-//            var chairUpdated = _ctx.Chairs.Update(chair).Entity;
+            foreach (var chairColor in chair.ChairColors)
+            {
+                var color = _ctx.Colors.FirstOrDefault(c => c.Name.Equals(chairColor.Color.Name));
+                if (color == null)
+                {
+                    chairColor.Color = new Color(){Name = chairColor.Color.Name};
+                }
+                else
+                {
+                    chairColor.Color = color;
+                }
+            }
+            foreach (var chairTag in chair.ChairTags)
+            {
+                var tag = _ctx.Tags.FirstOrDefault(t => t.Name.Equals(chairTag.Tag.Name));
+                if (tag == null)
+                {
+                    chairTag.Tag = new Tag(){Name = chairTag.Tag.Name};
+                }
+                else
+                {
+                    chairTag.Tag = tag;
+                }
+            }
+
+            _ctx.Chairs.Update(chair);
             _ctx.SaveChanges();
         }
 
@@ -47,6 +85,48 @@ namespace WebShop.Infrastructure.Data.Repositories
 
         public Chair AddChair(Chair chair)
         {
+            foreach (var chairColor in chair.ChairColors)
+            {
+                var color = _ctx.Colors.FirstOrDefault(c => c.Name.Equals(chairColor.Color.Name));
+                if (color == null)
+                {
+                    chairColor.Color = new Color(){Name = chairColor.Color.Name};
+                }
+                else
+                {
+                    chairColor.Color = color;
+                }
+            }
+            foreach (var chairTag in chair.ChairTags)
+            {
+                var tag = _ctx.Tags.FirstOrDefault(t => t.Name.Equals(chairTag.Tag.Name));
+                if (tag == null)
+                {
+                    chairTag.Tag = new Tag(){Name = chairTag.Tag.Name};
+                }
+                else
+                {
+                    chairTag.Tag = tag;
+                }
+            }
+
+            var designer = _ctx.Designers.FirstOrDefault(d =>
+                d.FirstName.ToLower().Equals(chair.Designer.FirstName.ToLower()));
+            if (designer == null)
+            {
+                chair.Designer = new Designer()
+                {
+                    FirstName = chair.Designer.FirstName,
+                    LastName = chair.Designer.LastName,
+                    CountryOfOrigin = chair.Designer.CountryOfOrigin
+                };
+            }
+            else
+            {
+                chair.Designer = designer;
+            }
+            
+            
             var chairAdded = _ctx.Add(chair).Entity;
             _ctx.SaveChanges();
             return chairAdded;
@@ -71,5 +151,6 @@ namespace WebShop.Infrastructure.Data.Repositories
                 chairTag.Tag = _ctx.Tags.FirstOrDefault(t => t.Id == chairTag.TagId);
             }
         }
+        
     }
 }

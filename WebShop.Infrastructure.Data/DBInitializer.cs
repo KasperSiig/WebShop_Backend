@@ -145,9 +145,9 @@ namespace WebShop.Infrastructure.Data
                 Description = "Dette er en meget fin stol",
                 Designer = arne,
                 Maker = maker,
-                Name = "Lille æg",
+                Name = "Træls æg",
                 Price = 43599.0,
-                PictureURL = "assets/imgs/chairs/chair4.png"
+                PictureURL = "assets/imgs/chairs/chair7.png"
             }).Entity;
             
             var neweggdw1 = ctx.Chairs.Add(new Chair()

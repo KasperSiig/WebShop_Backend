@@ -34,7 +34,8 @@ namespace WebShop.Infrastructure.Data.Repositories
 
         public void UpdateChair(Chair chair)
         {
-            var chairUpdated = _ctx.Chairs.Update(chair).Entity;
+            _ctx.Entry(chair).State = EntityState.Modified;
+//            var chairUpdated = _ctx.Chairs.Update(chair).Entity;
             _ctx.SaveChanges();
         }
 

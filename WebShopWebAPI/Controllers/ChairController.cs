@@ -144,8 +144,7 @@ namespace WebShopWebAPI.Controllers
         [HttpPut("{id}")]
         public ActionResult Put(int id, [FromBody] Chair chair)
         {
-            chair.Id = id;
-
+            chair = _ChairService.GetChairById(id);
             try
             {
                 _ChairService.UpdateChair(chair);

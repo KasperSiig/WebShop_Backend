@@ -53,6 +53,11 @@ namespace WebShopWebAPI
                     opt => opt
                         .UseSqlServer(_conf.GetConnectionString("defaultConnection")));
             }
+
+            var MVC = services.AddMvc();
+            MVC.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            MVC.AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
             services.AddScoped<IUserService, UserService>();
 
             services.AddScoped<IChairService, ChairService>();
@@ -62,15 +67,7 @@ namespace WebShopWebAPI
             services.AddScoped<IFilterRepository, FilterRepository>();
 
             services.AddScoped<IUserRepository, UserRepositorie>();
-
-            services.AddMvc().AddJsonOptions(options =>
-            {
-                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-            });
-
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
-
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
